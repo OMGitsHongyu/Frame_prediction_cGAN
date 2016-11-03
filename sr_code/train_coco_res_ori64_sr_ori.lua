@@ -26,7 +26,6 @@ opt = {
    classnum = 81, 
    save_epoch = 5, 
    mse_lamda = 1000,
-
 }
 
 opt.flag = 1
