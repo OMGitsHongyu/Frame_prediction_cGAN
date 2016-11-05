@@ -20,7 +20,7 @@ paths.dofile('dataset.lua')
 -------- COMMON CACHES and PATHS
 -- a cache file of the training metadata (if doesnt exist, will be created)
 -- local cache = "cache_coco"
-local cache = "cache_coco"
+local cache = "cache_pascal"
 os.execute('mkdir -p '..cache)
 local trainCache = paths.concat(cache, 'trainCache.t7')
 -- local trainCache = paths.concat(cache, 'testCache.t7')
@@ -45,8 +45,7 @@ local function loadImage(path)
 end
 
 
-local savepath = '/home/hongyuz/t_imgs/'
-
+local savepath = '/scratch/hongyuz/t_imgs/'
 function saveData(img, imgname)
   img = (img + 1 ) * 127.5
   img = img:byte()
@@ -165,7 +164,6 @@ else
       split = 100,
       verbose = true
    }
-   print(trainLoader)
    torch.save(trainCache, trainLoader)
    trainLoader.sampleHookTrain = trainHook
 end

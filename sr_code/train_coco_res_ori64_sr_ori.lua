@@ -26,6 +26,7 @@ opt = {
    classnum = 81, 
    save_epoch = 5, 
    mse_lamda = 1000,
+
 }
 
 opt.flag = 1
@@ -46,7 +47,7 @@ torch.setnumthreads(1)
 torch.setdefaulttensortype('torch.FloatTensor')
 
 -- create data loader
-local DataLoader = paths.dofile('data/data_ori.lua')
+local DataLoader = paths.dofile('data/data.lua')
 local data = DataLoader.new(opt.nThreads, opt.dataset, opt)
 print("Dataset: " .. opt.dataset, " Size: ", data:size())
 ----------------------------------------------------------------------------
@@ -54,7 +55,7 @@ local function weights_init(m)
    local name = torch.type(m)
    if name:find('Convolution') then
       m.weight:normal(0.0, 0.02)
-      m:noBias()
+--      m:noBias()
    elseif name:find('BatchNormalization') then
       if m.weight then m.weight:normal(1.0, 0.02) end
       if m.bias then m.bias:fill(0) end
@@ -360,8 +361,8 @@ for epoch = 1, opt.niter do
        parametersD, gradParametersD = nil, nil -- nil them to avoid spiking memory
        parametersG, gradParametersG = nil, nil
 --       torch.save('/nfs.yoda/xiaolonw/torch_projects/models_coco/' .. opt.name .. '/' .. epoch .. '_net_G.t7', netG:clearState())
-       torch.save('/scratch/hongyuz/models_coco/' .. opt.name .. '/' .. epoch .. '_net_G.t7', netG:clearState())
 --       torch.save('/nfs.yoda/xiaolonw/torch_projects/models_coco/' .. opt.name .. '/' .. epoch .. '_net_D.t7', netD:clearState())
+       torch.save('/scratch/hongyuz/models_coco/' .. opt.name .. '/' .. epoch .. '_net_G.t7', netG:clearState())
        torch.save('/scratch/hongyuz/models_coco/' .. opt.name .. '/' .. epoch .. '_net_D.t7', netD:clearState())
        parametersD, gradParametersD = netD:getParameters() -- reflatten the params and get them
        parametersG, gradParametersG = netG:getParameters()

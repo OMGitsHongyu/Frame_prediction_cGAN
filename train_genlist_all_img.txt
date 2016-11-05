@@ -1,2 +1,2 @@
-coco/2.jpg coco/1.jpg
-coco/1.jpg coco/2.jpg
+coco/2.jpg 1
+coco/1.jpg 2
