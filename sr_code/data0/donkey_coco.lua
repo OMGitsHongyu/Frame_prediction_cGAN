@@ -45,7 +45,7 @@ local function loadImage(path)
 end
 
 
-local savepath = '/nfs.yoda/xiaolonw/torch_projects/t_imgs/'
+local savepath = '/scratch/hongyuz/t_imgs/'
 function saveData(img, imgname)
   img = (img + 1 ) * 127.5
   img = img:byte()
@@ -164,7 +164,6 @@ else
       split = 100,
       verbose = true
    }
-   print(trainLoader)
    torch.save(trainCache, trainLoader)
    trainLoader.sampleHookTrain = trainHook
 end

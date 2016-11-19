@@ -24,11 +24,15 @@ local dataset = torch.class('dataLoader')
 -- list_file = '/nfs/hn38/users/xiaolonw/COCO/coco-master/train_genlist.txt'
 -- path_dataset = '/scratch/xiaolonw/coco/gen_imgs/'
 
-list_file = '../train_genlist_all_img.txt'
-path_dataset = '/scratch/hongyuz/gen_imgs_all2/'
+-- list_file = '/nfs/hn38/users/xiaolonw/COCO/coco-master/train_genlist_all_img.txt'
+-- path_dataset = '/scratch/xiaolonw/coco/gen_imgs_all2/'
 
 -- list_file = '/nfs/hn38/users/xiaolonw/VOCcode/trainval_bbox.txt'
 -- path_dataset = '/scratch/xiaolonw/voc/VOC2007_gen/'
+
+list_file = '../train_genlist_all_img.txt'
+lbl_list_file = '../label_all_img.txt'
+path_dataset = '/scratch/hongyuz/gen_imgs_all3/'
 
 
 local initcheck = argcheck{
@@ -117,8 +121,8 @@ function dataset:__init(...)
    -- find the image path names
    self.imagePath = torch.CharTensor()  -- path to each image in dataset
    self.labelPath = torch.CharTensor() -- class index of each image (class index in self.classes)
-   -- self.lblset = torch.IntTensor()
-   self.lblset = torch.CharTensor() -- path to the label next frame
+   self.lblset = torch.IntTensor()
+
    --==========================================================================
    print('load the large concatenated list of sample paths to self.imagePath')
    local maxPathLength = tonumber(sys.fexecute(wc .. " -L '"
@@ -130,8 +134,8 @@ function dataset:__init(...)
    assert(length > 0, "Could not find any image file in the given input paths")
    assert(maxPathLength > 0, "paths of files are length 0?")
    self.imagePath:resize(length, maxPathLength):fill(0)
-   -- self.lblset:resize(length):fill(0)
-   self.lblset:resize(length, maxPathLength):fill(0)
+   self.lblset:resize(length):fill(0)
+
 
    local s_data = self.imagePath:data()
    local count = 0
@@ -144,40 +148,30 @@ function dataset:__init(...)
 
       -- get name
       list = f:read("*line")
-      print(list .. 'list')
       cnt = 0 
       for str in string.gmatch(list, "%S+") do
-        print(str .. '   str here')
-        print(cnt)
-        -- lbl = tonumber(str)
-	cnt = cnt + 1
+        -- print(str)
+        cnt = cnt + 1
         if cnt == 1 then 
           filename = str
-          print(filename .. 'filename')
-	  -- cnt=2
-	  -- lbl=tonumber(str)
-	  -- print(lbl .. 'lbl at cnt 1')
         elseif cnt == 2 then 
-          --lbl= tonumber(str)
-	  lbl= str
-	  print(lbl .. 'lbl')
+          lbl= tonumber(str)
         end
 
       end
       assert(cnt == 2)
-      print(path_dataset .. 'pathdaaset')
-      print(filename .. 'filename')
+
       filename = path_dataset .. filename  
       ffi.copy(s_data, filename)
       s_data = s_data + maxPathLength
-      -- remains same
+
       self.lblset[i] = lbl
-      
+
 
       if i % 10000 == 0 then
         print(i)
         print(ffi.string(torch.data(self.imagePath[i])))
-        print(ffi.string(torch.data(self.labelPath[i])) )
+        -- print(ffi.string(torch.data(self.labelPath[i])) )
 
       end
       count = count + 1
@@ -203,13 +197,12 @@ end
 function dataset:getByClass(class)
    local idx = torch.random(1, (#(self.imagePath))[1] )
    local imgpath = ffi.string(torch.data(self.imagePath[idx]))
-   -- set label image path
-   local lblpath = ffi.string(torch.data(self.labelPath[idx]))
-   -- local lblnum = self.lblset[idx] 
+   -- local lblpath = ffi.string(torch.data(self.labelPath[idx]))
+   local lblnum = self.lblset[idx] 
    -- if class == 1 then
    --      print(imgpath)
    -- end
-   return self:sampleHookTrain(imgpath, lblpath ) -- change to label iame path--  lblnum) 
+   return self:sampleHookTrain(imgpath, lblnum) 
 end
 
 
@@ -219,10 +212,8 @@ local function tableToOutput(self, dataTable, nowlbls)
    local quantity = #dataTable
    assert(dataTable[1]:dim() == 3)
    data = torch.Tensor(quantity, self.sampleSize[1], self.sampleSize[2], self.sampleSize[3])
-   -- lbltensor = torch.Tensor(quantity, opt.classnum) 
-   -- lbltensor:fill(0)
-   -- change to take image 
-   lbltensor = torch.Tensor(quantity, self.sampleSize[1], self.sampleSize[2], self.sampleSize[3])
+   lbltensor = torch.Tensor(quantity, opt.classnum) 
+   lbltensor:fill(0)
    for i=1,#dataTable do
       data[i]:copy(dataTable[i])
       lbltensor[{{i},{nowlbls[i]}}] = 1
@@ -248,7 +239,6 @@ function dataset:sample(quantity)
    -- print( (#(self.imagePath))[1]  )
    local dataTable = {}
    local nowlbls = torch.IntTensor(quantity)
-
    for i=1,quantity do
       local img, lblnum = self:getByClass(i)
       table.insert(dataTable, img)
@@ -266,9 +256,7 @@ function dataset:get(i1, i2)
    assert(quantity > 0)
    -- now that indices has been initialized, get the samples
    local dataTable = {}
-   -- local nowlbls = torch.IntTensor(quantity)
-   -- change to take label image
-   local nowlbls = torch.CharTensor(quantity)
+   local nowlbls = torch.IntTensor(quantity)
    for i=1,quantity do
       -- load the sample
       local imgpath = ffi.string(torch.data(self.imagePath[indices[i]]))

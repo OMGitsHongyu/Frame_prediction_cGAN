@@ -357,13 +357,13 @@ for epoch = 1, opt.niter do
    if epoch % opt.save_epoch == 0 then 
 
 --       paths.mkdir('/nfs.yoda/xiaolonw/torch_projects/models_coco/' .. opt.name .. '/')
-       paths.mkdir('/scratch/hongyuz/models_coco_rev/' .. opt.name .. '/')
+       paths.mkdir('/scratch/hongyuz/models_coco5/' .. opt.name .. '/')
        parametersD, gradParametersD = nil, nil -- nil them to avoid spiking memory
        parametersG, gradParametersG = nil, nil
 --       torch.save('/nfs.yoda/xiaolonw/torch_projects/models_coco/' .. opt.name .. '/' .. epoch .. '_net_G.t7', netG:clearState())
 --       torch.save('/nfs.yoda/xiaolonw/torch_projects/models_coco/' .. opt.name .. '/' .. epoch .. '_net_D.t7', netD:clearState())
-       torch.save('/scratch/hongyuz/models_coco_rev/' .. opt.name .. '/' .. epoch .. '_net_G.t7', netG:clearState())
-       torch.save('/scratch/hongyuz/models_coco_rev/' .. opt.name .. '/' .. epoch .. '_net_D.t7', netD:clearState())
+       torch.save('/scratch/hongyuz/models_coco5/' .. opt.name .. '/' .. epoch .. '_net_G.t7', netG:clearState())
+       torch.save('/scratch/hongyuz/models_coco5/' .. opt.name .. '/' .. epoch .. '_net_D.t7', netD:clearState())
        parametersD, gradParametersD = netD:getParameters() -- reflatten the params and get them
        parametersG, gradParametersG = netG:getParameters()
        print(('End of epoch %d / %d \t Time Taken: %.3f'):format(

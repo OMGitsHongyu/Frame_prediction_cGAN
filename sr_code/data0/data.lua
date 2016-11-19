@@ -57,7 +57,7 @@ end
 
 function data._getFromThreads()
    assert(opt.batchSize, 'opt.batchSize not found')
-   return makeData_res(trainLoader:sample(opt.batchSize))
+   return makeData(trainLoader:sample(opt.batchSize))
 end
 
 function data._pushResult(...)

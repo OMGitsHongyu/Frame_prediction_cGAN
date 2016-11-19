@@ -20,10 +20,10 @@ paths.dofile('dataset.lua')
 -------- COMMON CACHES and PATHS
 -- a cache file of the training metadata (if doesnt exist, will be created)
 -- local cache = "cache_coco"
-local cache = "cache_pascal"
+local cache = "cache_1fame_reverse"
 os.execute('mkdir -p '..cache)
 local trainCache = paths.concat(cache, 'trainCache.t7')
--- local trainCache = paths.concat(cache, 'testCache.t7')
+--local trainCache = paths.concat(cache, 'testCache.t7')
 local testCache = paths.concat(cache, 'testCache.t7')
 local meanstdCache = paths.concat(cache, 'meanstdCache.t7')
 
@@ -45,7 +45,8 @@ local function loadImage(path)
 end
 
 
-local savepath = '/scratch/hongyuz/t_imgs/'
+local savepath = '/home/hongyuz/t_imgs/'
+
 function saveData(img, imgname)
   img = (img + 1 ) * 127.5
   img = img:byte()
@@ -73,8 +74,8 @@ function makeData(fine, classes)
      classesids[i] = indices[1]
 
        if opt.flag == 1  then 
-        local hpatch_name = paths.concat(savepath, string.format('%04d_ori.jpg',i ))
-        local coarse_input_name = paths.concat(savepath, string.format('%04d_coarse_input.jpg',i ))
+        local hpatch_name = paths.concat(savepath, string.format('%04d_coarse_input.jpg',i ))
+        local coarse_input_name = paths.concat(savepath, string.format('%04d_ori.jpg',i ))
         saveData(fine[i]:clone(), hpatch_name)
         saveData(coarse_input[i]:clone(), coarse_input_name)
        end
@@ -86,6 +87,41 @@ function makeData(fine, classes)
    opt.flag  = 0
    return {fine, coarse_input, classes, classesids, coarse_input0}
 end
+
+
+
+function makeData_video(fine, fine2)
+
+   local coarse_size = opt.scale_coarse
+   local sample_num  = (#(fine))[1]
+   local channel_num = (#(fine))[2]
+   local coarse_input0 = torch.Tensor(sample_num, channel_num, coarse_size, coarse_size)
+   local coarse_input = torch.Tensor(sample_num, channel_num, opt.loadSize, opt.loadSize)
+
+   for i = 1, sample_num do
+
+     local now_fine = fine[i]:clone()
+     local t_coarse_input = image.scale(now_fine, coarse_size, coarse_size):clone()
+     local t_coarse_input2  = image.scale(t_coarse_input, opt.loadSize, opt.loadSize):clone()
+     coarse_input0[i] = t_coarse_input:clone()
+     coarse_input[i] = t_coarse_input2:clone()
+
+       if opt.flag == 1  then
+        local hpatch_name = paths.concat(savepath, string.format('%04d_ori.jpg',i ))
+        local coarse_input_name = paths.concat(savepath, string.format('%04d_coarse_input.jpg',i ))
+        saveData(fine[i]:clone(), hpatch_name)
+        saveData(coarse_input[i]:clone(), coarse_input_name)
+       end
+
+
+
+   end
+
+   opt.flag  = 0
+   return {fine2, coarse_input,  coarse_input0}
+end
+
+
 
 
 
@@ -140,10 +176,13 @@ sub_num = -1
 local trainHook = function(self, imgpath, lblnum)
    collectgarbage()
    local img = loadImage(imgpath)
+   local lbl = loadImage(lblnum)
    img:div(div_num)
    img:add(sub_num)
+   lbl:div(div_num)
+   lbl:add(sub_num)
 
-   return img, lblnum
+   return img, lbl
 
 end
 
@@ -164,6 +203,7 @@ else
       split = 100,
       verbose = true
    }
+   print(trainLoader)
    torch.save(trainCache, trainLoader)
    trainLoader.sampleHookTrain = trainHook
 end
