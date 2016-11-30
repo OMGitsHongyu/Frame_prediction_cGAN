@@ -20,7 +20,7 @@ paths.dofile('dataset.lua')
 -------- COMMON CACHES and PATHS
 -- a cache file of the training metadata (if doesnt exist, will be created)
 -- local cache = "cache_coco"
-local cache = "cache_1fame_reverse"
+local cache = "cache_pred"
 os.execute('mkdir -p '..cache)
 local trainCache = paths.concat(cache, 'trainCache.t7')
 --local trainCache = paths.concat(cache, 'testCache.t7')
