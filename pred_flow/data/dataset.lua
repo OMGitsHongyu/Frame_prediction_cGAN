@@ -263,6 +263,7 @@ local function tableToOutput(self, dataTable, nowlbls, nowflowx, nowflowy)
    for i=1,#dataTable do
       data[i]:copy(dataTable[i])
       lbltensor[i]:copy(nowlbls[i])
+      print(nowflowx[i]:size())
       flowxtensor[i]:copy(nowflowx[i])
       flowytensor[i]:copy(nowflowy[i])
    end
