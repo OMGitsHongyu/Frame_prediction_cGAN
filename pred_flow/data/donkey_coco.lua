@@ -45,6 +45,14 @@ local function loadImage(path)
 end
 
 
+local function loadImage_flow(path)
+   local input = image.load(path, 1, 'float')
+   input = image.scale(input, opt.loadSize, opt.loadSize, 'bilinear')
+   input = input * 255
+   return input
+end
+
+
 local savepath = '/home/hongyuz/t_imgs/'
 
 function saveData(img, imgname)
@@ -220,8 +228,8 @@ local trainHook = function(self, imgpath, lblnum, flowxpath, flowypath)
    collectgarbage()
    local img = loadImage(imgpath)
    local lbl = loadImage(lblnum)
-   local flowx = loadImage(flowxpath)
-   local flowy = loadImage(flowypath)
+   local flowx = loadImage_flow(flowxpath)
+   local flowy = loadImage_flow(flowypath)
    img:div(div_num)
    img:add(sub_num)
    
