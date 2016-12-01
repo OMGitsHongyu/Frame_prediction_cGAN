@@ -65,7 +65,7 @@ torch.setdefaulttensortype('torch.CudaTensor')
 
 
 
-model_G = torch.load('/scratch/xiaolonw/models_ucf/train_ucf_pred_16s/24_net_G.t7')
+model_G = torch.load('/scratch/xiaolonw/models_ucf/train_ucf_pred_5frame_16s/32_net_G.t7')
 
 opt.div_num = 127.5
 opt.sub_num = -1
