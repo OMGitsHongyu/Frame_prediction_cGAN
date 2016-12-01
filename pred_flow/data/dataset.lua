@@ -26,9 +26,10 @@ local dataset = torch.class('dataLoader')
 
 -- list_file = '../trainlist_gap1_full.txt'
 -- list_file = '../trainlist_gap5_full.txt'
+list_file = '../trainlist_gap10_full.txt'
 
 -- list_file = '../testlist_gap1_full.txt'
-list_file = '../testlist_gap5_full.txt'
+-- list_file = '../testlist_gap5_full.txt'
 
 path_dataset = '/scratch/xiaolonw/videos/'
 -- list_file = '/nfs/hn38/users/xiaolonw/VOCcode/trainval_bbox.txt'
