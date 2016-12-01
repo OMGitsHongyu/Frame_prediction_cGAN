@@ -22,8 +22,8 @@ paths.dofile('dataset.lua')
 -- local cache = "cache_coco"
 local cache = "cache_pred"
 os.execute('mkdir -p '..cache)
-local trainCache = paths.concat(cache, 'trainCache_full.t7')
--- local trainCache = paths.concat(cache, 'trainCache_full_5frame.t7')
+-- local trainCache = paths.concat(cache, 'trainCache_full.t7')
+local trainCache = paths.concat(cache, 'trainCache_full_5frame.t7')
 local testCache = paths.concat(cache, 'testCache.t7')
 local meanstdCache = paths.concat(cache, 'meanstdCache.t7')
 
@@ -152,7 +152,7 @@ function makeData_video_flow(fine, fine2, flowx, flowy)
      local now_flowy = flowy[i]:clone()
      now_flowx = image.scale(now_flowx, flow_size, flow_size):clone()
      now_flowx = image.scale(now_flowx, loadSize, loadSize):clone()
-     
+
      now_flowy = image.scale(now_flowy, flow_size, flow_size):clone()
      now_flowy = image.scale(now_flowy, loadSize, loadSize):clone()
 
