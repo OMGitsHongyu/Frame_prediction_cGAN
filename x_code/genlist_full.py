@@ -25,6 +25,7 @@ for i in range(listnum):
 
 	jpglen = len(jpglist) 
 	samplenum = round( ( jpglen - 10) / 10.0 )
+	samplenum = int(samplenum)
 
 	for j in range(samplenum): 
 		jpgid = j * 10 
@@ -36,10 +37,10 @@ for i in range(listnum):
 		flownamex = frame_name1[:-4] + '_x.jpg' 
 		flownamey = frame_name1[:-4] + '_y.jpg' 
 
-		frame_name1 = rgbfolder + frame_name1
-		frame_name2 = rgbfolder + frame_name2
-		flownamex = flowfolder + flownamex
-		flownamey = flowfolder + flownamey
+		frame_name1 = rgbfolder + video_name + '/' + frame_name1
+		frame_name2 = rgbfolder + video_name + '/' + frame_name2
+		flownamex = flowfolder + video_name + '/' + flownamex
+		flownamey = flowfolder + video_name + '/' + flownamey
 
 		f.write('{0} {1} {2} {3}\n'.format(frame_name1, frame_name2, flownamex, flownamey) )
 
