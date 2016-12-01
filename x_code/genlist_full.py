@@ -31,8 +31,8 @@ for i in range(listnum):
 		jpgid = j * 10 
 		jpgid2 = jpgid + jpggap
 
-		frame_name1 = jpglist[jpgid]
-		frame_name2 = jpglist[jpgid2]
+		frame_name1 = "%04d" % jpgid  + '.jpg'
+		frame_name2 = "%04d" % jpgid2 + '.jpg'
 
 		flownamex = frame_name1[:-4] + '_x.jpg' 
 		flownamey = frame_name1[:-4] + '_y.jpg' 
