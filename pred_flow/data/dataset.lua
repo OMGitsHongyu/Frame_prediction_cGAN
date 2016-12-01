@@ -24,9 +24,9 @@ local dataset = torch.class('dataLoader')
 -- list_file = '/nfs/hn38/users/xiaolonw/COCO/coco-master/train_genlist.txt'
 -- path_dataset = '/scratch/xiaolonw/coco/gen_imgs/'
 
-list_file = '../trainlist_gap1_full.txt'
--- lbl_list_file = '../label_all_img.txt'
--- path_dataset = '/scratch/hongyuz/gen_imgs_all3/'
+-- list_file = '../trainlist_gap1_full.txt'
+list_file = '../trainlist_gap5_full.txt'
+
 path_dataset = '/scratch/xiaolonw/videos/'
 -- list_file = '/nfs/hn38/users/xiaolonw/VOCcode/trainval_bbox.txt'
 -- path_dataset = '/scratch/xiaolonw/voc/VOC2007_gen/'
