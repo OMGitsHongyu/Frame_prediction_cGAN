@@ -89,7 +89,7 @@ function getSamples(dataset, N, beg)
 
   -- Generate samples
   noise_inputs:normal(0, 1)
-  batch_data = makeData_video(trainLoader:sample(N))
+  batch_data = makeData_video_flow(trainLoader:sample(N))
   -- batch_data = makeData_res(trainLoader:get(beg + 1, beg + N ) )
 
   diff_input:copy(batch_data[1])
