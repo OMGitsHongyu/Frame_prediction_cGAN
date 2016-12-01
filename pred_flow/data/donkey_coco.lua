@@ -137,10 +137,11 @@ function makeData_video_flow(fine, fine2, flowx, flowy)
 
    local coarse_size = opt.scale_coarse
    local flow_size   = opt.scale_flow
+   local loadSize    = opt.loadSize
    local sample_num  = (#(fine))[1]
    local channel_num = (#(fine))[2]
    local coarse_input0 = torch.Tensor(sample_num, channel_num, coarse_size, coarse_size)
-   local flow_input = torch.Tensor(sample_num, 2, flow_size, flow_size)
+   local flow_input = torch.Tensor(sample_num, 2, loadSize, loadSize)
 
    for i = 1, sample_num do
 
@@ -150,7 +151,10 @@ function makeData_video_flow(fine, fine2, flowx, flowy)
      local now_flowx = flowx[i]:clone()
      local now_flowy = flowy[i]:clone()
      now_flowx = image.scale(now_flowx, flow_size, flow_size):clone()
+     now_flowx = image.scale(now_flowx, loadSize, loadSize):clone()
+     
      now_flowy = image.scale(now_flowy, flow_size, flow_size):clone()
+     now_flowy = image.scale(now_flowy, loadSize, loadSize):clone()
 
      flow_input[{{i}, {1}, {}, {}}]:copy(now_flowx)
      flow_input[{{i}, {2}, {}, {}}]:copy(now_flowy) 
