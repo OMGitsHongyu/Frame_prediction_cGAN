@@ -22,7 +22,7 @@ opt = {
    display = 0,            -- display samples while training. 0 = false
    display_id = 10,        -- display window id.
    gpu = 1,                -- gpu = 0 is CPU mode. gpu=X is GPU mode on GPU X
-   name = 'train_ucf_pred',
+   name = 'train_ucf_pred_16s',
    noise = 'normal',       -- uniform / normal
    classnum = 81, 
    save_epoch = 2, 
