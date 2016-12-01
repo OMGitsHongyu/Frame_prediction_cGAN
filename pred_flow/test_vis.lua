@@ -112,7 +112,7 @@ function getSamples(dataset, N, beg)
 
       output_img = (output_img + 1 ) * opt.div_num
       output_img = output_img:byte()
-      image.save(img_name, output_img)
+      image.save(output_name, output_img)
 
 
       coarse_img = (cond_inputs_coarse[i] + 1 ) * opt.div_num
