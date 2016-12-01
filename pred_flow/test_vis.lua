@@ -20,7 +20,8 @@ opt = {
    dataset = 'coco',       -- imagenet / lsun / folder
    batchSize = 100,
    loadSize = 128,
-   scale_coarse = 64, 
+   scale_coarse = 128, 
+   scale_flow = 128, 
    nz = 100,               -- #  of dim for Z
    ngf = 64,               -- #  of gen filters in first conv layer
    ndf = 64,               -- #  of discrim filters in first conv layer
@@ -64,7 +65,7 @@ torch.setdefaulttensortype('torch.CudaTensor')
 
 
 
-model_G = torch.load('/scratch/hongyuz/models_coco/train_coco_res_dcgan_ori64_sr_ori/10_net_G.t7')
+model_G = torch.load('/scratch/xiaolonw/models_ucf/train_ucf_pred/40_net_G.t7')
 
 opt.div_num = 127.5
 opt.sub_num = -1
@@ -72,18 +73,17 @@ opt.sub_num = -1
 
 paths.dofile('data/donkey_coco.lua')
 
-local resultfile = '/scratch/hongyuz/models_coco/train_coco_res_dcgan_ori64_sr_ori/res_cls.txt' 
+local resultfile = '/home/xiaolonw/ruslan/results/res_cls.txt' 
 local file = torch.DiskFile(resultfile, "w")
 
 
 function getSamples(dataset, N, beg)
-  local resultpath = '/scratch/hongyuz/models_coco/train_coco_res_dcgan_ori64_sr_ori/'
+  local resultpath = '/home/xiaolonw/ruslan/results/'
   os.execute('mkdir -p '.. resultpath)
   local N = N or 8
   local noise_inputs = torch.Tensor(N, opt.noiseDim[1], opt.noiseDim[2], opt.noiseDim[3])
-  local cond_inputs = torch.Tensor(N, opt.condDim[1], opt.condDim[2], opt.condDim[3])
-  local cond_inputs2 = torch.Tensor(N, opt.classnum, 1, 1)
   local diff_input = torch.Tensor(N, opt.condDim[1], opt.condDim[2], opt.condDim[3])
+  local cond_inputs_flow = torch.Tensor(opt.batchSize, 2, opt.scale_flow, opt.scale_flow)
   local cond_inputs_coarse = torch.Tensor(N, 3, opt.scale_coarse, opt.scale_coarse)
   local label_ids = torch.Tensor(N)
 
@@ -93,36 +93,27 @@ function getSamples(dataset, N, beg)
   -- batch_data = makeData_res(trainLoader:get(beg + 1, beg + N ) )
 
   diff_input:copy(batch_data[1])
-  -- cond_inputs:copy(batch_data[2])
-  -- cond_inputs2:copy(batch_data[3])
-  -- label_ids:copy(batch_data[4])
-  cond_inputs_coarse:copy(batch_data[3])
-  -- print(batch_data[1]:size())
-  -- print(batch_data[3]:size())
+  cond_inputs_coarse:copy(batch_data[2])
+  cond_inputs_flow:copy(batch_data[3]) 
 
-  local samples = model_G:forward({noise_inputs:cuda(), cond_inputs_coarse:cuda()}) 
+
+
+  local samples = model_G:forward({noise_inputs:cuda(), cond_inputs_coarse:cuda(), cond_inputs_flow:cuda() }) 
 
   gt_imgs = diff_input:clone()
 
   for i=1,N do
       coarse_name = paths.concat(resultpath, string.format('%04d_input.jpg',i + beg))
-      output_name = paths.concat(resultpath, string.format('%04d_diff.jpg',i + beg))
-      img_name = paths.concat(resultpath, string.format('%04d_predicted.jpg',i + beg))
-      ori_name = paths.concat(resultpath, string.format('%04d_real.jpg',i + beg))
+      output_name = paths.concat(resultpath, string.format('%04d_pred.jpg',i + beg))
+      img_name = paths.concat(resultpath, string.format('%04d_imgs.jpg',i + beg))
+      ori_name = paths.concat(resultpath, string.format('%04d_gt.jpg',i + beg))
 
       output_img = samples[i]:float():clone() -- torch.add(cond_inputs[i]:float(), samples[i]:float())
-      indx = output_img:gt(1):byte()
-      indx2 = output_img:lt(-1):byte()
-      output_img:maskedCopy(indx, cond_inputs[i]:float():maskedSelect(indx))
-      output_img:maskedCopy(indx2, cond_inputs[i]:float():maskedSelect(indx2))
 
       output_img = (output_img + 1 ) * opt.div_num
       output_img = output_img:byte()
       image.save(img_name, output_img)
 
-      -- diff_img = (samples[i] + 1 ) * opt.div_num
-      -- diff_img = diff_img:byte():clone()
-      -- image.save(output_name, diff_img)
 
       coarse_img = (cond_inputs_coarse[i] + 1 ) * opt.div_num
       coarse_img = coarse_img:byte():clone()
@@ -137,30 +128,6 @@ function getSamples(dataset, N, beg)
 
   end
 
-
-  -- noise_inputs:normal(0, 1)
-  -- local samples2 = model_G:forward({noise_inputs:cuda(), cond_inputs_coarse:cuda()}) 
-
-  -- for i=1,N do
-  --     output_name = paths.concat(resultpath, string.format('%04d_diff2.jpg',i + beg))
-  --     img_name = paths.concat(resultpath, string.format('%04d_imgs2.jpg',i + beg))
-
-  --     output_img = samples2[i]:float():clone() -- torch.add(cond_inputs[i]:float(), samples2[i]:float())
-  --     indx = output_img:gt(1):byte()
-  --     indx2 = output_img:lt(-1):byte()
-  --     output_img:maskedCopy(indx, cond_inputs[i]:float():maskedSelect(indx))
-  --     output_img:maskedCopy(indx2, cond_inputs[i]:float():maskedSelect(indx2))
-  --     output_img = (output_img + 1 ) * opt.div_num
-  --     output_img = output_img:byte()
-
-  --     image.save(img_name, output_img)
-
-  --     -- diff_img = (samples2[i] + 1 ) * opt.div_num
-  --     -- diff_img = diff_img:byte():clone()
-  --     -- image.save(output_name, diff_img)
-
-
-  -- end
   
 
 end
