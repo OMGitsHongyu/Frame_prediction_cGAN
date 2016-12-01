@@ -25,7 +25,7 @@ opt = {
    name = 'train_ucf_pred',
    noise = 'normal',       -- uniform / normal
    classnum = 81, 
-   save_epoch = 5, 
+   save_epoch = 2, 
    mse_lamda = 1000,
 
 }
