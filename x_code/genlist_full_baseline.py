@@ -3,7 +3,7 @@ import os
 
 filename = sys.argv[1]
 outname  = sys.argv[2] 
-datasetpath = '/scratch/xiaolonw/'
+datasetpath = '/scratch/xiaolonw/videos/'
 rgbfolder = 'UCF101_frames_org2/'
 flowfolder = 'UCF101_opt_flows_org2/'
 
