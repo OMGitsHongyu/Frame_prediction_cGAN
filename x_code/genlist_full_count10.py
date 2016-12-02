@@ -2,6 +2,7 @@ import sys
 import os
 import cv2
 import numpy as np
+import math
 
 filename = sys.argv[1]
 outname  = sys.argv[2] 
