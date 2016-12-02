@@ -4,9 +4,9 @@ import cv2
 import numpy as np
 
 
-filename = '/nfs.yoda/xiaolonw/torch_projects/Frame_prediction_cGAN/trainlist_xy.txt'
+filename = '/nfs.yoda/xiaolonw/torch_projects/Frame_prediction_cGAN/trainlist_xy5.txt'
 filecenter = '/nfs.yoda/xiaolonw/torch_projects/Frame_prediction_cGAN/centers.txt'
-fileout = '/nfs.yoda/xiaolonw/torch_projects/Frame_prediction_cGAN/trainlist_gap1_cluster.txt'
+fileout = '/nfs.yoda/xiaolonw/torch_projects/Frame_prediction_cGAN/trainlist_gap5_cluster.txt'
 
 
 
