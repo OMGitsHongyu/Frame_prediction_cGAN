@@ -21,7 +21,7 @@ opt = {
    batchSize = 100,
    loadSize = 128,
    scale_coarse = 128, 
-   scale_flow = 128, 
+   scale_flow = 16, 
    nz = 100,               -- #  of dim for Z
    ngf = 64,               -- #  of gen filters in first conv layer
    ndf = 64,               -- #  of discrim filters in first conv layer
@@ -65,7 +65,7 @@ torch.setdefaulttensortype('torch.CudaTensor')
 
 
 
-model_G = torch.load('/home/xiaolonw/ruslan/models_ucf/train_ucf_pred_5frame/32_net_G.t7')
+model_G = torch.load('/home/xiaolonw/ruslan/models_ucf/train_ucf_pred_5frame_16s/32_net_G.t7')
 
 opt.div_num = 127.5
 opt.sub_num = -1
@@ -83,7 +83,7 @@ function getSamples(dataset, N, beg)
   local N = N or 8
   local noise_inputs = torch.Tensor(N, opt.nz, 1, 1)
   local diff_input = torch.Tensor(N, opt.condDim[1], opt.condDim[2], opt.condDim[3])
-  local cond_inputs_flow = torch.Tensor(opt.batchSize, 2, opt.scale_flow, opt.scale_flow)
+  local cond_inputs_flow = torch.Tensor(opt.batchSize, 2, opt.condDim[2], opt.condDim[3])
   local cond_inputs_coarse = torch.Tensor(N, 3, opt.scale_coarse, opt.scale_coarse)
   local label_ids = torch.Tensor(N)
 
