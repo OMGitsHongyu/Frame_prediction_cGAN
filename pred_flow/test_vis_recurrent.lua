@@ -100,7 +100,9 @@ function getSamples(dataset, N, beg)
   local samples_set = {}
   local current_input = cond_inputs_coarse:clone()
 
-  for i = 1, 10 do 
+  local recurrent_len = 5
+
+  for i = 1, recurrent_len do 
     local samples = model_G:forward({noise_inputs:cuda(), current_input:cuda(), cond_inputs_flow:cuda() }) 
     samples_set[i] = samples:clone()
     current_input = samples:clone()
@@ -128,7 +130,7 @@ function getSamples(dataset, N, beg)
 
   end
 
-  for t = 1 , 10 do
+  for t = 1 , recurrent_len do
 
     local samples = samples_set[t]
     for i=1,N do
