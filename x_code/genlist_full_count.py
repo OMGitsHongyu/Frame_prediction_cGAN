@@ -29,6 +29,9 @@ for i in range(listnum):
 	samplenum = round( ( jpglen - 10) / 10.0 )
 	samplenum = int(samplenum)
 
+	if i % 100 == 0:
+		print(i)
+
 	for j in range(samplenum): 
 		jpgid = j * 10 
 		jpgid2 = jpgid + jpggap
@@ -51,8 +54,8 @@ for i in range(listnum):
 		im_flowx  = cv2.imread(flownamex)
 		im_flowy  = cv2.imread(flownamey)
 
-		flowx_num = np.mean(im_flowx)
-		flowy_num = np.mean(im_flowy)
+		flowx_num = np.mean(im_flowx) - 128
+		flowy_num = np.mean(im_flowy) - 128
 
 		f.write('{0} {1}\n'.format(flowx_num, flowy_num) )
 
