@@ -45,7 +45,7 @@ local function loadImage(path)
 end
 
 
-local savepath = '/home/hongyuz/t_imgs/'
+local savepath = '/home/xiaolonw/t_imgs/'
 
 function saveData(img, imgname)
   img = (img + 1 ) * 127.5
