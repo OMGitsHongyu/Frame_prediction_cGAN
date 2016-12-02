@@ -39,8 +39,8 @@ for i in range(K):
 	init_centers[i] = np.copy(points[pid]) 
 
 centers = kmeans(points, init_centers)
-error   = centers[2]
-centers = centers[1]
+error   = centers[1]
+centers = centers[0]
 print(centers)
 print(error)
 
