@@ -39,7 +39,10 @@ for i in range(K):
 	init_centers[i] = np.copy(points[pid]) 
 
 centers = kmeans(points, init_centers)
+error   = centers[2]
+centers = centers[1]
 print(centers)
+print(error)
 
 with open(filecenter, 'w') as f:
 	for i in range(K):
