@@ -11,7 +11,7 @@ with open(filename, 'r') as f:
 	filelist = f.readlines()
 
 listnum = len(filelist)
-jpggap = 1 
+jpggap = 5
 
 f = open(outname, 'w')
 
