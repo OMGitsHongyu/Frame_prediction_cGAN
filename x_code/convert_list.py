@@ -27,6 +27,9 @@ for i in range(K):
 	centers[i][1] = float(tc_set[1])
 
 
+counts = np.zeros(40)
+
+
 
 with open(fileout, 'w') as f:
 
@@ -50,9 +53,12 @@ with open(fileout, 'w') as f:
 		dis = np.sum(dis, 1)
 		cid = np.argmin(dis) + 1
 
+		counts[cid - 1] = counts[cid - 1] + 1
+
 		f.write('{0} {1} {2}\n'.format(filename1, filename2, cid) )
 
 
+print(counts)
 
 
 
