@@ -22,7 +22,8 @@ paths.dofile('dataset.lua')
 -- local cache = "cache_coco"
 local cache = "cache_baseline"
 os.execute('mkdir -p '..cache)
-local trainCache = paths.concat(cache, 'trainCache.t7')
+-- local trainCache = paths.concat(cache, 'trainCache.t7')
+local trainCache = paths.concat(cache, 'trainCache_frame5.t7')
 --local trainCache = paths.concat(cache, 'testCache.t7')
 local testCache = paths.concat(cache, 'testCache.t7')
 local meanstdCache = paths.concat(cache, 'meanstdCache.t7')
