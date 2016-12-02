@@ -175,14 +175,12 @@ function dataset:__init(...)
 	      cnt = cnt + 1
         if cnt == 1 then 
           filename = str
-          print(filename .. 'filename')
 	  -- cnt=2
 	  -- lbl=tonumber(str)
 	  -- print(lbl .. 'lbl at cnt 1')
         elseif cnt == 2 then 
           --lbl= tonumber(str)
 	  lbl= str
-	  print(lbl .. 'lbl')
         end
 
       end
