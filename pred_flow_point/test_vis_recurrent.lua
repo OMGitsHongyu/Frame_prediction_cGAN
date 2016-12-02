@@ -35,7 +35,7 @@ opt = {
    gpu = 1,                -- gpu = 0 is CPU mode. gpu=X is GPU mode on GPU X
    name = 'train_coco_res_dcgan_ori',
    noise = 'normal',       -- uniform / normal
-   classnum = 81, 
+   classnum = 40, 
    save_epoch = 3, 
 
 }
@@ -65,7 +65,7 @@ torch.setdefaulttensortype('torch.CudaTensor')
 
 
 
-model_G = torch.load('/home/xiaolonw/ruslan/models_ucf/train_ucf_pred_5frame/32_net_G.t7')
+model_G = torch.load('/home/xiaolonw/ruslan/models_ucf/train_ucf_pred_point/36_net_G.t7')
 
 opt.div_num = 127.5
 opt.sub_num = -1
@@ -83,13 +83,13 @@ function getSamples(dataset, N, beg)
   local N = N or 8
   local noise_inputs = torch.Tensor(N, opt.nz, 1, 1)
   local diff_input = torch.Tensor(N, opt.condDim[1], opt.condDim[2], opt.condDim[3])
-  local cond_inputs_flow = torch.Tensor(opt.batchSize, 2, opt.condDim[2], opt.condDim[3])
+  local cond_inputs_flow = torch.Tensor(opt.batchSize, opt.classnum, 1, 1)
   local cond_inputs_coarse = torch.Tensor(N, 3, opt.scale_coarse, opt.scale_coarse)
   local label_ids = torch.Tensor(N)
 
   -- Generate samples
   noise_inputs:normal(0, 1)
-  batch_data = makeData_video_flow(trainLoader:sample(N))
+  batch_data = makeData_video(trainLoader:sample(N))
   -- batch_data = makeData_res(trainLoader:get(beg + 1, beg + N ) )
 
   diff_input:copy(batch_data[1])
