@@ -84,7 +84,7 @@ function getSamples(dataset, N, beg)
   local resultpath = '/home/xiaolonw/ruslan/results/'
   os.execute('mkdir -p '.. resultpath)
   local N = N or 8
-  local noise_inputs = torch.Tensor(N, opt.nz, 1, 1)
+  local noise_inputs = torch.Tensor(N, 1, opt.condDim[2], opt.condDim[3])
   local diff_input = torch.Tensor(N, opt.condDim[1], opt.condDim[2], opt.condDim[3])
   local cond_inputs_flow = torch.Tensor(opt.batchSize, 2, opt.scale_flow, opt.scale_flow)
   local cond_inputs_coarse = torch.Tensor(N, 3, opt.scale_coarse, opt.scale_coarse)
@@ -101,7 +101,7 @@ function getSamples(dataset, N, beg)
 
 
 
-  local samples = model_G:forward({noise_inputs:cuda(), cond_inputs_coarse:cuda() }) 
+  local samples = model_G:forward({noise_inputs:cuda(), cond_inputs_coarse:cuda()}) 
 
   gt_imgs = diff_input:clone()
 
