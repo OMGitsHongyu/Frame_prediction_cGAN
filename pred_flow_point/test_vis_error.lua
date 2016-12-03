@@ -156,6 +156,7 @@ end
 
 error_sum = error_sum / batchnum
 print(error_sum)
+print(error_sum)
 
 
 -- torch.save('to_plot.t7', to_plot)
