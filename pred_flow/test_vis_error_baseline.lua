@@ -65,7 +65,7 @@ torch.setdefaulttensortype('torch.CudaTensor')
 
 
 
-model_G = torch.load('/home/xiaolonw/ruslan/models_ucf/train_ucf_pred_baseline/32_net_G.t7')
+model_G = torch.load('/home/xiaolonw/ruslan/models_ucf/train_ucf_pred_baseline_5frame/32_net_G.t7')
 
 opt.div_num = 127.5
 opt.sub_num = -1
@@ -73,7 +73,7 @@ opt.sub_num = -1
 
 paths.dofile('data/donkey_coco.lua')
 
-local resultfile = '/home/xiaolonw/ruslan/results/train_ucf_pred_baseline.txt' 
+local resultfile = '/home/xiaolonw/ruslan/results/train_ucf_pred_baseline_5frame.txt' 
 local file = torch.DiskFile(resultfile, "w")
 
 
