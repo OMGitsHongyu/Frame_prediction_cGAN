@@ -116,17 +116,17 @@ function getSamples(dataset, N, beg)
       output_img = samples[i]:float():clone() -- torch.add(cond_inputs[i]:float(), samples[i]:float())
 
       output_img = (output_img + 1 ) * opt.div_num
-      output_img = output_img:byte()
+      -- output_img = output_img:byte()
       -- image.save(output_name, output_img)
 
 
       coarse_img = (cond_inputs_coarse[i] + 1 ) * opt.div_num
-      coarse_img = coarse_img:byte():clone()
+      -- coarse_img = coarse_img:byte():clone()
       -- image.save(coarse_name, coarse_img)
 
 
       ori_img = (gt_imgs[i] + 1 ) * opt.div_num
-      ori_img = ori_img:byte():clone()
+      -- ori_img = ori_img:byte():clone()
       -- image.save(ori_name, ori_img)
 
       local dis = output_img - ori_img 
