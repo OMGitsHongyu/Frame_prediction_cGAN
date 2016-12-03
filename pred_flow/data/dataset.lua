@@ -26,9 +26,9 @@ local dataset = torch.class('dataLoader')
 
 -- list_file = '../trainlist_gap1_full.txt'
 -- list_file = '../trainlist_gap5_full.txt'
-list_file = '../trainlist_gap10_full.txt'
+-- list_file = '../trainlist_gap10_full.txt'
 
--- list_file = '../testlist_gap1_full.txt'
+list_file = '../testlist_gap1_full.txt'
 -- list_file = '../testlist_gap5_full.txt'
 
 path_dataset = '/scratch/xiaolonw/videos/'
@@ -312,19 +312,28 @@ function dataset:get(i1, i2)
    assert(quantity > 0)
    -- now that indices has been initialized, get the samples
    local dataTable = {}
-   -- local nowlbls = torch.IntTensor(quantity)
-   -- change to take label image
-   local nowlbls = torch.CharTensor(quantity)
+   local labelTable = {}
+   local flowxTable = {}
+   local flowyTable = {}
+
    for i=1,quantity do
       -- load the sample
       local imgpath = ffi.string(torch.data(self.imagePath[indices[i]]))
-      local lblnum =  self.lblset[indices[i]] 
-      local img, lbl = self:sampleHookTrain(imgpath, lblnum)
+      local lblpath  = ffi.string(torch.data(self.labelPath[indices[i]]))
+      local flowxpath  = ffi.string(torch.data(self.flowxPath[indices[i]]))
+      local flowypath  = ffi.string(torch.data(self.flowyPath[indices[i]]))
+
+      local img, lblnum, flowx, flowy = self:sampleHookTrain(imgpath, lblpath, flowxpath, flowypath ) 
       table.insert(dataTable, img)
-      nowlbls[i] = lblnum
+      table.insert(labelTable, lblnum)
+      table.insert(flowxTable, flowx)
+      table.insert(flowyTable, flowy)
+
    end
-   local data, lbltensor = tableToOutput(self, dataTable, nowlbls)
-   return data, lbltensor
+
+   local data, lbltensor, flowxtensor, flowytensor = tableToOutput(self, dataTable, labelTable, flowxTable, flowyTable)
+   return data, lbltensor, flowxtensor, flowytensor
+
 end
 
 return dataset
