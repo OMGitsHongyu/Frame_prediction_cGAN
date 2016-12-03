@@ -25,9 +25,9 @@ os.execute('mkdir -p '..cache)
 -- local trainCache = paths.concat(cache, 'trainCache_full.t7')
 -- local trainCache = paths.concat(cache, 'trainCache_full_5frame.t7')
 -- local trainCache = paths.concat(cache, 'testCache_full.t7')
--- local trainCache = paths.concat(cache, 'testCache_full_5frame.t7')
+local trainCache = paths.concat(cache, 'testCache_full_5frame.t7')
 -- local trainCache = paths.concat(cache, 'trainCache_full_10frame.t7')
-local trainCache = paths.concat(cache, 'testCache_full_10frame.t7')
+-- local trainCache = paths.concat(cache, 'testCache_full_10frame.t7')
 
 
 
