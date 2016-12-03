@@ -27,7 +27,9 @@ local dataset = torch.class('dataLoader')
 -- list_file = '../trainlist_gap1_full.txt'
 -- list_file = '../trainlist_gap5_full.txt'
 -- list_file = '../trainlist_gap5_cluster.txt'
-list_file = '../trainlist_gap10_cluster.txt'
+-- list_file = '../trainlist_gap10_cluster.txt'
+
+list_file = '../testlist_gap1_cluster.txt'
 
 -- list_file = '../testlist_gap1_full.txt'
 -- list_file = '../testlist_gap5_full.txt'
@@ -289,25 +291,33 @@ function dataset:sample(quantity)
 
 end
 
+
 function dataset:get(i1, i2)
    local indices = torch.range(i1, i2);
    local quantity = i2 - i1 + 1;
    assert(quantity > 0)
    -- now that indices has been initialized, get the samples
    local dataTable = {}
-   -- local nowlbls = torch.IntTensor(quantity)
-   -- change to take label image
-   local nowlbls = torch.CharTensor(quantity)
+   local labelTable = {}
+   local lblnumTable = {}
+
    for i=1,quantity do
       -- load the sample
       local imgpath = ffi.string(torch.data(self.imagePath[indices[i]]))
-      local lblnum =  self.lblset[indices[i]] 
-      local img, lbl = self:sampleHookTrain(imgpath, lblnum)
+      local lblpath = ffi.string(torch.data(self.labelPath[indices[i]]))
+      local lblidx_in  = self.lblset[indices[i]]
+
+      local img, lblnum, lblidx = self:sampleHookTrain(imgpath, lblpath,  lblidx_in) 
       table.insert(dataTable, img)
-      nowlbls[i] = lblnum
+      table.insert(labelTable, lblnum)
+      table.insert(lblnumTable, lblidx)
+
    end
-   local data, lbltensor = tableToOutput(self, dataTable, nowlbls)
-   return data, lbltensor
+
+   local data, lbltensor, lblnumtensor = tableToOutput(self, dataTable, labelTable, lblnumTable)
+   return data, lbltensor, lblnumtensor
+
 end
+
 
 return dataset
