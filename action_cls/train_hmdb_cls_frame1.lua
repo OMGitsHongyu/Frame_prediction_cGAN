@@ -71,6 +71,7 @@ if opt.network == '' then
 
   local nplanes = 64
   local inputsize = 128
+  local outputsize3 =  nplanes * 2 * (inputsize / 16) * (inputsize / 16) 
 
   pretrain_netD = torch.load(opt.pretrain) 
 
