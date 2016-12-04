@@ -70,7 +70,7 @@ for i in range(listnum):
 			flowxname = flowdir + classname + '/' + filename + '/' + flowxname
 			flowyname = flowdir + classname + '/' + filename + '/' + flowyname 
 
-			fout.write('{0} {1} {2} {3}\n'.format(jpgname, flowxname, flowyname, i) )
+			fout.write('{0} {1} {2} {3}\n'.format(jpgname, flowxname, flowyname, i + 1) )
 
 
 
