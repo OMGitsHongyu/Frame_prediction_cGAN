@@ -15,7 +15,7 @@ filelist = os.listdir(filedir)
 fout = open(outlist, 'w')
 listnum = len(filelist)
 
-fclass = open(filelist, 'w') 
+fclass = open(classlist, 'w') 
 
 
 for i in range(listnum):
