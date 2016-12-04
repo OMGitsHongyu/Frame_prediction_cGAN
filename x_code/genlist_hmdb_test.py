@@ -61,7 +61,7 @@ for i in range(listnum):
 
 			frame_id = math.floor( k * fgap)
 			frame_id = math.floor(min(frame_id, jpgnum - 1) )
-			jpgname  = "%04d" % frame_id 
+			jpgname  = "%04d" % frame_id + '.jpg'
 
 			flowxname = jpgname[:-4]  + '_x.jpg' 
 			flowyname = jpgname[:-4]  + '_y.jpg' 
