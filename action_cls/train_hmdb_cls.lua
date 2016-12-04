@@ -102,11 +102,14 @@ if opt.network == '' then
   local outputsize3 =  nplanes * 2 * (inputsize / 16) * (inputsize / 16) 
   rshp = nn.Reshape(outputsize3)(dr5)
 
-  dh6 = nn.Linear(outputsize3, 2046)(rshp)
+  droprshp = nn.Dropout()(rshp)
+
+  dh6 = nn.Linear(outputsize3, 2046)(droprshp)
   db6 = nn.BatchNormalization(2046)(dh6)
   dr6 = nn.LeakyReLU(0.2, true)(db6) 
+  dropdr6 = nn.Dropout()(dr6)
 
-  dh7 = nn.Linear(2046, opt.classnum)(dr6)
+  dh7 = nn.Linear(2046, opt.classnum)(dropdr6)
   dout = nn.LogSoftMax()(dh7)
 
   netD = nn.gModule({dx_I, dx_C}, {dout})
@@ -197,6 +200,12 @@ end
 for epoch = 1, opt.niter do
    epoch_tm:reset()
    local counter = 0
+
+   if epoch == 25 then
+    optimStateD.learningRate = optimStateD.learningRate * 0.1
+   end
+
+
    for i = 1, math.min(data:size(), opt.ntrain), opt.batchSize do
       tm:reset()
       -- (1) Update D network: maximize log(D(x)) + log(1 - D(G(z)))

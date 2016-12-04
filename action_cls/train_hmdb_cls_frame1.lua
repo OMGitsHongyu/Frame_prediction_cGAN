@@ -81,9 +81,11 @@ if opt.network == '' then
     netD:add(pretrain_netD.modules[i])
   end
 
+  netD:add(nn.Dropout())
   netD:add(nn.Linear(outputsize3, 2046))
   netD:add(nn.BatchNormalization(2046))
   netD:add(nn.LeakyReLU(0.2, true))
+  netD:add(nn.Dropout())
   netD:add(nn.Linear(2046, opt.classnum))
   netD:add(nn.LogSoftMax())
 
@@ -173,6 +175,12 @@ end
 for epoch = 1, opt.niter do
    epoch_tm:reset()
    local counter = 0
+
+   if epoch == 25 then
+    optimStateD.learningRate = optimStateD.learningRate * 0.1
+   end
+
+   
    for i = 1, math.min(data:size(), opt.ntrain), opt.batchSize do
       tm:reset()
       -- (1) Update D network: maximize log(D(x)) + log(1 - D(G(z)))
