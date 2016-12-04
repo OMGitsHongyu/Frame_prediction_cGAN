@@ -327,8 +327,8 @@ function dataset:get(i1, i2)
 
    end
 
-   local data, flowxtensor, flowytensor = tableToOutput(self, dataTable, flowxTable, flowyTable, lblnumTable)
-   return data, flowxtensor, flowytensor
+   local data, flowxtensor, flowytensor, lblnumtensor = tableToOutput(self, dataTable, flowxTable, flowyTable, lblnumTable)
+   return data, flowxtensor, flowytensor, lblnumtensor
 
 end
 

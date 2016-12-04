@@ -183,7 +183,6 @@ local fDx = function(x)
    cond_inputs_coarse:copy(inputs_all[2])
    cond_inputs_flow:copy(inputs_all[3])
 
-   targets:fill(1)
    local output = netD:forward( {cond_inputs_coarse, cond_inputs_flow} )
    local errD_real = criterion:forward(output, targets)
    local df_do = criterion:backward(output, targets)
@@ -215,11 +214,10 @@ for epoch = 1, opt.niter do
       -- logging
       if ((i-1) / opt.batchSize) % 1 == 0 then
          print(('Epoch: [%d][%8d / %8d]\t Time: %.3f  DataTime: %.3f  '
-                   .. '  Err_G: %.4f  Err_D: %.4f'):format(
+                   .. ' Err_D: %.4f'):format(
                  epoch, ((i-1) / opt.batchSize),
                  math.floor(math.min(data:size(), opt.ntrain) / opt.batchSize),
-                 tm:time().real, data_tm:time().real,
-                 errG and errG or -1, errD and errD or -1))
+                 tm:time().real, data_tm:time().real, errD and errD or -1))
       end
    end
 
