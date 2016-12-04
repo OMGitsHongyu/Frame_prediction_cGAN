@@ -13,7 +13,7 @@ classlist = 'hmdb_class_list.txt'
 filelist = os.listdir(filedir)
 
 fout = open(outlist, 'w')
-listnum = len(filelist)
+listnum = 51 #len(filelist)
 
 fclass = open(classlist, 'w') 
 
