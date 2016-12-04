@@ -44,7 +44,7 @@ for i in range(listnum):
 		filename = ts_set[0]
 		label = ts_set[1]
 		if len(ts_set) > 2:
-			print(ts_set)
+			print(ts)
 			
 		label = float(label)
 
