@@ -45,7 +45,8 @@ for i in range(listnum):
 		label = ts_set[1]
 		if len(ts_set) > 2:
 			print(ts)
-			
+			assert(len(ts_set) == 2)
+
 		label = float(label)
 
 		if label == 0:
