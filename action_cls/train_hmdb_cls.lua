@@ -103,7 +103,7 @@ if opt.network == '' then
   rshp = nn.Reshape(outputsize3)(dr5)
 
   dh6 = nn.Linear(outputsize3, 2046)(rshp)
-  db6 = nn.BatchNormalization(outputsize3)(dh6)
+  db6 = nn.BatchNormalization(2046)(dh6)
   dr6 = nn.LeakyReLU(0.2, true)(db6) 
 
   dh7 = nn.Linear(2046, opt.classnum)(dr6)
