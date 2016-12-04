@@ -60,8 +60,12 @@ for i in range(listnum):
 		jpglist = os.listdir(jpg_folder)
 		jpgnum  = len(jpglist)
 
+		jpgnum = jpgnum - 1
+
 		for k in range(jpgnum):
-			jpgname = jpglist[k]
+			
+			jpgname  = "%04d" % k + '.jpg'
+
 			flowxname = jpgname[:-4]  + '_x.jpg' 
 			flowyname = jpgname[:-4]  + '_y.jpg' 
 
