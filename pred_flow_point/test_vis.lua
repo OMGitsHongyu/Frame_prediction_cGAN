@@ -65,7 +65,7 @@ torch.setdefaulttensortype('torch.CudaTensor')
 
 
 
-model_G = torch.load('/scratch/xiaolonw/models_ucf/train_ucf_pred_point/36_net_G.t7')
+model_G = torch.load('/scratch/xiaolonw/models_ucf/train_ucf_pred_point_5frame/36_net_G.t7')
 
 opt.div_num = 127.5
 opt.sub_num = -1
@@ -78,7 +78,7 @@ local file = torch.DiskFile(resultfile, "w")
 
 
 function getSamples(dataset, N, beg)
-  local resultpath = '/home/xiaolonw/ruslan/results/'
+  local resultpath = '/home/xiaolonw/ruslan/results_pred_point/'
   os.execute('mkdir -p '.. resultpath)
   local N = N or 8
   local noise_inputs = torch.Tensor(N, opt.nz, 1, 1)
