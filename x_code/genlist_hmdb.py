@@ -39,7 +39,7 @@ for i in range(listnum):
 
 	samplenum = len(samplelist)
 	for j in range(samplenum):
-		ts = samplelist[i]
+		ts = samplelist[j]
 		ts_set = ts.split()
 		filename = ts_set[0]
 		label = ts_set[1]
