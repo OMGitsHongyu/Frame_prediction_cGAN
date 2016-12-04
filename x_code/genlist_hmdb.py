@@ -17,6 +17,8 @@ listnum = len(filelist)
 
 fclass = open(classlist, 'w') 
 
+print(filelist) 
+
 
 for i in range(listnum):
 	txtfile = filelist[i]
@@ -38,7 +40,6 @@ for i in range(listnum):
 		samplelist = f.readlines()
 
 	samplenum = len(samplelist)
-	print(samplenum) 
 	for j in range(samplenum):
 		ts = samplelist[j]
 		ts_set = ts.split()
