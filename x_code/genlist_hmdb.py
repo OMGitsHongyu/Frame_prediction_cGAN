@@ -38,9 +38,9 @@ for i in range(listnum):
 		samplelist = f.readlines()
 
 	samplenum = len(samplelist)
+	print(samplenum) 
 	for j in range(samplenum):
 		ts = samplelist[j]
-		print(ts)
 		ts_set = ts.split()
 		filename = ts_set[0]
 		label = ts_set[1]
