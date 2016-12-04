@@ -23,7 +23,12 @@ for i in range(listnum):
 	txtfile2 = filedir + txtfile
 
 	txt_set = txtfile.split('_')
-	classname = txt_set[0] 
+	classname = ''
+
+	txt_len = len(txt_set)
+	for j in range(txt_len - 2):
+		classname = classname + txt_set[j]
+
 
 	fclass.write('{0} {1}\n'.format(classname, i) )
 
