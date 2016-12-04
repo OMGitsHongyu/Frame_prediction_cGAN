@@ -10,7 +10,7 @@ flowdir = 'hmdb_opt_flows_org2/'
 
 classlist = 'hmdb_class_list.txt' 
 
-filelist = os.listdir(video_dir)
+filelist = os.listdir(filedir)
 
 fout = open(outlist, 'w')
 listnum = len(filelist)
