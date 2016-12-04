@@ -146,7 +146,8 @@ function getSamples(dataset, N, beg)
 end
 
 
-batchnum = 661
+-- batchnum = 661
+batchnum = 623
 
 for i = 1,batchnum do 
   print(i)
