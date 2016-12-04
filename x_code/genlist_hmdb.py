@@ -51,9 +51,9 @@ for i in range(listnum):
 			flowxname = jpgname[:-4]  + '_x.jpg' 
 			flowyname = jpgname[:-4]  + '_y.jpg' 
 
-			jpgname = jpgdir + classname + '/' + filename + '/' jpgname
-			flowxname = flowdir + classname + '/' + filename + '/' flowxname
-			flowyname = flowdir + classname + '/' + filename + '/' flowyname 
+			jpgname = jpgdir + classname + '/' + filename + '/' + jpgname
+			flowxname = flowdir + classname + '/' + filename + '/' + flowxname
+			flowyname = flowdir + classname + '/' + filename + '/' + flowyname 
 
 			fout.write('{0} {1} {2} {3}\n'.format(jpgname, flowxname, flowyname, i) )
 
