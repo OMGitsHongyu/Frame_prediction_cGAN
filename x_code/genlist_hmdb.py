@@ -43,7 +43,11 @@ for i in range(listnum):
 		ts_set = ts.split()
 		filename = ts_set[0]
 		label = ts_set[1]
+		if len(ts_set) > 2:
+			print(ts_set)
+			
 		label = float(label)
+
 		if label == 0:
 			continue
 		if label == 2:
