@@ -27,7 +27,9 @@ for i in range(listnum):
 
 	txt_len = len(txt_set)
 	for j in range(txt_len - 2):
-		classname = classname + txt_set[j]
+		classname = classname + txt_set[j] 
+		if j < txt_len - 3: 
+			classname = classname + '_'
 
 
 	fclass.write('{0} {1}\n'.format(classname, i) )
