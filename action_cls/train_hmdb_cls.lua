@@ -162,7 +162,6 @@ if opt.gpu > 0 then
       cudnn.convert(netD, cudnn)
    end
    netD:cuda();           criterion:cuda()
-   criterion2:cuda()
 end
 
 local parametersD, gradParametersD = netD:getParameters()
