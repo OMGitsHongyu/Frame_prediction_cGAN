@@ -4,6 +4,7 @@ require 'optim'
 require 'nngraph'
 require 'cunn'
 require 'image'
+require 'cudnn'
 
 opt = {
    dataset = 'coco',       -- imagenet / lsun / folder
