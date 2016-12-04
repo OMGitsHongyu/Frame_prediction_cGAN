@@ -27,7 +27,7 @@ opt = {
    classnum = 51, 
    save_epoch = 2, 
    mse_lamda = 1000,
-   weightDecay = 0.0005
+   weightDecay = 0.0005,
    momentum = 0.9
 
 }
