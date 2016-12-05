@@ -30,7 +30,8 @@ local dataset = torch.class('dataLoader')
 
 -- list_file = '../testlist_gap1_full.txt'
 -- list_file = '../testlist_gap5_full.txt'
-list_file = '../hmdb_cls.txt'
+-- list_file = '../hmdb_cls.txt'
+list_file = '../hmdb_cls_test.txt'
 
 path_dataset = '/scratch/xiaolonw/videos/'
 -- list_file = '/nfs/hn38/users/xiaolonw/VOCcode/trainval_bbox.txt'
