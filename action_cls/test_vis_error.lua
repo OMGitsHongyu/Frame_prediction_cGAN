@@ -116,7 +116,7 @@ function getSamples(dataset, N, beg)
       end
       maxs, indices = torch.max(prop, 1)
       indx = indices[1]
-      if indx == targets[(i - 1) * video_len + 1] 
+      if indx == targets[(i - 1) * video_len + 1]  then
         batch_accuracy = batch_accuracy + 1
       end
 
