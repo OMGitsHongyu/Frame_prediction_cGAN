@@ -112,6 +112,8 @@ function getSamples(dataset, N, beg)
       
       prop = torch.Tensor(opt.classnum):fill(0)
       for j = 1, video_len do 
+        print(samples[(i - 1) * video_len + j] )
+        print(prop)
         prop = prop + samples[(i - 1) * video_len + j] 
       end
       maxs, indices = torch.max(prop, 1)
