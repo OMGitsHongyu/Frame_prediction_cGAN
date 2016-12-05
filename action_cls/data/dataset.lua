@@ -325,7 +325,8 @@ function dataset:get(i1, i2)
       table.insert(dataTable, img)
       table.insert(flowxTable, flowx)
       table.insert(flowyTable, flowy)
-
+      table.insert(lblnumTable, lblidx)
+      
    end
 
    local data, flowxtensor, flowytensor, lblnumtensor = tableToOutput(self, dataTable, flowxTable, flowyTable, lblnumTable)
