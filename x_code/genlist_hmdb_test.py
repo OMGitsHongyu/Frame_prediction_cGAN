@@ -55,6 +55,9 @@ for i in range(listnum):
 		jpglist = os.listdir(jpg_folder)
 		jpgnum  = len(jpglist)
 
+		if jpgnum < 10: 
+			continue
+
 		jpgnum = jpgnum - 1
 
 		fgap = float(jpgnum) / 24.0
