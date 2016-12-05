@@ -65,7 +65,9 @@ torch.setdefaulttensortype('torch.CudaTensor')
 
 
 
-model_G = torch.load('/scratch/xiaolonw/models_ucf/train_hmdb_cls_frame1/40_net_D.t7')
+model_G = torch.load('/scratch/xiaolonw/models_ucf/train_hmdb_cls_frame1/20_net_D.t7')
+model_G = model_G:evaluate()
+
 
 opt.div_num = 127.5
 opt.sub_num = -1
