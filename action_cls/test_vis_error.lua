@@ -65,7 +65,7 @@ torch.setdefaulttensortype('torch.CudaTensor')
 
 
 
-model_G = torch.load('/scratch/xiaolonw/models_ucf/train_hmdb_cls_frame5/20_net_D.t7')
+model_G = torch.load('/scratch/xiaolonw/models_ucf/train_hmdb_cls_frame5/24_net_D.t7')
 model_G:evaluate()
 
 
