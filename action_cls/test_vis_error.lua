@@ -107,13 +107,14 @@ function getSamples(dataset, N, beg)
   local samples = model_G:forward({cond_inputs_coarse:cuda(), cond_inputs_flow:cuda() }) 
   local batch_accuracy = 0
   local batch_size = N / video_len
+  samples = samples:float()
 
   for i=1, batch_size do
       
       prop = torch.Tensor(opt.classnum):fill(0)
       for j = 1, video_len do 
-        print(samples[(i - 1) * video_len + j]:size() )
-        print(prop:size())
+        -- print(samples[(i - 1) * video_len + j]:size() )
+        -- print(prop:size())
         prop = prop + samples[(i - 1) * video_len + j] 
       end
       maxs, indices = torch.max(prop, 1)
