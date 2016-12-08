@@ -1,4 +1,4 @@
-# Frame_prediction_cGAN
+# Frame Prediction using cGAN
 Interpolate and extrapolate video frames using cGAN
 
 Authors: Hongyu Zhu, Xiaolong Wang and Siddha Ganju.
