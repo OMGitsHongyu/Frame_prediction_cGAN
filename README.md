@@ -5,9 +5,9 @@ Authors: Hongyu Zhu, Xiaolong Wang and Siddha Ganju.
 
 ## Network architecture
 ### The GAN
-
+<img src="https://github.com/OMGitsHongyu/Frame_prediction_cGAN/blob/master/figures/approach.png" width="500">
 ### The generator
-
+<img src="https://github.com/OMGitsHongyu/Frame_prediction_cGAN/blob/master/figures/model_archi.png">
 ## Models and inputs
 
 | Models | Generator (*G*) |  Discriminator (*D*) |
@@ -19,6 +19,10 @@ Authors: Hongyu Zhu, Xiaolong Wang and Siddha Ganju.
 
 ## Dataset and experiments
 ### Frame prediction -- UCF101
+[The 6<sup>th</sup> frames](https://omgitshongyu.github.io/Frame_prediction_cGAN/html/train_ucf_pred_5frame_30/1.html)
 
+
+[Every 5 frames recurrently](https://omgitshongyu.github.io/Frame_prediction_cGAN/html/train_ucf_pred_5frame_recurrent/1.html)
 ### Action Recognition -- HMDB51
-### Static Image Editing -- MS COCO
+### [Static Image Editing](https://omgitshongyu.github.io/Frame_prediction_cGAN/html/ms_coco_pred_1frame_40flow/1.html) -- MS COCO
+
