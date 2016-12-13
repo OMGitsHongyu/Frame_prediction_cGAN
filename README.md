@@ -24,5 +24,5 @@ Authors: Hongyu Zhu, Xiaolong Wang and Siddha Ganju.
 
 [Every 5 frames recurrently](https://omgitshongyu.github.io/Frame_prediction_cGAN/html/train_ucf_pred_5frame_recurrent/1.html)
 ### Action Recognition -- HMDB51
-### [Static Image Editing](https://omgitshongyu.github.io/Frame_prediction_cGAN/html/ms_coco_pred_1frame_40flow/1.html) -- MS COCO
+### [Static Image Editing](https://omgitshongyu.github.io/Frame_prediction_cGAN/html/ms_coco_pred_5frame_30/1.html) -- MS COCO
   [GIFs with series of random flows](https://omgitshongyu.github.io/Frame_prediction_cGAN/html/ms_coco_pred_1frame_40flow/7.html)
